@@ -1,30 +1,24 @@
 (function() {
-  var app = angular.module('taskManager');
-
-  var taskRepo = function($http) {
-    var called = 0;
-    var db = {};
-
-    var get = function(id) {
-      called++;
-      console.log('Getting task ' + id + ' called ' + called + ' times.');
-      return {
-        name: 'task ' + id
-      }
+    var taskService = function($http) {
+        return {
+            complete: function(task) {
+                task.completed = true;
+                console.log('completing task: ' + task.name);
+            },
+            setCompleteDate: function(task) {
+                task.completedDate = new Date();
+                console.log(task.name + ' completed on ' + task.completedDate);
+            },
+            notifyCompletion: function(task, user) {
+                console.log('Notifying ' + user + ' of the completion of ' + task.name);
+            },
+            save: function(task) {
+                console.log('saving Task: ' + task.name);
+            }
+        }
     }
 
-    var save = function(task) {
-      called++;
-      console.log('Saving ' + task.name + ' to the db'+ ' called ' + called + ' times.');
-    }
-
-
-    return {
-      get: get,
-      save: save
-    }
-
-  }
-  app.service('TaskRepository', taskRepo);
+    var app = angular.module('taskManager');
+    app.service('TaskService', taskRepo);
 
 }())
