@@ -2,18 +2,20 @@
     var app = angular.module('taskManager');
 
     var taskRepo = function($http) {
-
+        var called = 0;
         var db = {};
 
         var get = function(id) {
-            console.log('Getting task ' + id);
+            called++;
+            console.log('Getting task ' + id + ' called ' + called + ' times.');
             return {
-                name: 'new task from db'
+                name: 'task ' + id
             }
         }
 
         var save = function(task) {
-            console.log('Saving ' + task.name + ' to the db');
+            called++;
+            console.log('Saving ' + task.name + ' to the db' + ' called ' + called + ' times.');
         }
 
         return {
